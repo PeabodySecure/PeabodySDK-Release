@@ -10,15 +10,16 @@ let package = Package(
         // This is the library name the customer selects in Xcode
         .library(
             name: "PeabodySDK",
-            targets: ["PeabodySDKTarget"]
+            targets: ["PeabodySDK"]
         ),
     ],
     targets: [
         // Points to your hosted binary zip and ensures its integrity
         .binaryTarget(
-            name: "PeabodySDKTarget",
-            url: "https://www.peabodycompliance.com/v1.0.0/PeabodySDK.xcframework.zip",
-            checksum: "9051d3eb40a584aaa5b39cedb6575438eaf1452cc11a70fb150bed9636498e44"
+            name: "PeabodySDK",
+            url: "https://www.peabodycompliance.com/v1.0.1/PeabodySDK.xcframework.zip",
+            checksum: "e643689421d37fd026c00f5147ad8244a903642c0e3bba6ced99bb7ba1bf5e8d"
         )
     ]
 )
+
