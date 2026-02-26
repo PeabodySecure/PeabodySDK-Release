@@ -1,84 +1,103 @@
-Peabody SDK for iOS
+# Peabody Compliance SDK
 
-The Peabody SDK is a specialized location-compliance framework built to help iOS applications meet strict jurisdictional requirements. By combining advanced device integrity checks with location verification, Peabody ensures that users are physically present within authorized borders before accessing regulated features or sensitive data.
+[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Web-blue)](https://peabodycompliance.com)
+[![License](https://img.shields.io/badge/license-Proprietary-red)](https://peabodycompliance.com/terms.html)
 
-Installation
+Peabody Compliance provides sub-second location integrity and hardware-backed device verification for high-compliance industries (iGaming, Fintech, Sweepstakes). Our SDKs prevent GPS spoofing, VPN/Proxy usage, and device tampering.
 
-Swift Package Manager (Recommended)
+## 🚀 Key Features
 
-In Xcode, open your project and navigate to File > Add Packages...
+*   **Hardware Integrity:** Utilizes Apple App Attest and Secure Enclave to prove request origin.
+*   **Spoofing Detection:** Identifies Mock Locations, Simulators, and GPS manipulation.
+*   **Network Intelligence:** Real-time detection of VPNs, Proxies, and Tor exit nodes.
+*   **Geofencing:** Precise jurisdictional verification (State/Country level) using GPS vs. IP consistency.
+*   **Tamper Protection:** Detection of Jailbroken/Rooted devices and screen mirroring.
 
-In the search bar, paste the repository URL:
-https://github.com/PeabodySecure/PeabodySDK-Release.git
+---
 
-Select the version requirement (e.g., Up to Next Major Version: 1.0.0).
+## 📱 iOS SDK Integration
 
-Click Add Package.
+### Installation
+Add the Peabody SDK to your project via **Swift Package Manager**:
+`https://github.com/PeabodySecure/PeabodySDK-Release`
 
-Ensure PeabodySDK is checked for your target and click Finish.
+### Configuration
+Initialize the SDK in your `AppDelegate` or `@main` struct.
 
-Jurisdictional Compliance Flow
+#### Method 1: API Key (Simple)
+```swift
+Peabody.configure(apiKey: "YOUR_API_KEY")
+```
 
-1. Global Initialization
+#### Method 2: Client ID Handshake (Secure)
+Acquire a temporary session token automatically using your public Client ID.
+```swift
+Peabody.configure(clientId: "YOUR_CLIENT_ID")
+```
+*Note: You can also add `PeabodyClientID` to your `Info.plist` for auto-configuration.*
 
-Initialize the SDK once at app launch to prepare the security handshake with Peabody's compliance servers.
-
-import PeabodySDK
-
-@main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        // Use your Production API Key
-        Peabody.configure(apiKey: "PB_PROD_YOUR_API_KEY")
-        
-        return true
-    }
-}
-
-
-2. Verify Jurisdictional Status
-
-Use this check whenever a user enters a restricted workflow (e.g., filing a tax return, accessing state-specific insurance documents, or making a regulated transaction).
-
+### Usage
+```swift
 Peabody.verifyLocation { result in
     switch result {
     case .success(let verdict):
-        // verdict.isCompliant confirms the user is in the correct jurisdiction
-        // and the device environment is secure.
         if verdict.isCompliant {
-            print("Jurisdictional Verification Successful.")
-            print("Confidence Score: \(verdict.score)%")
+            print("Access Granted. Score: \(verdict.score)")
         } else {
-            // Block access or redirect based on the specific failure reason
-            print("Compliance Failure: \(verdict.reason)")
+            print("Access Denied: \(verdict.reason)")
         }
     case .failure(let error):
-        print("System Error during verification: \(error.localizedDescription)")
+        print("Error: \(error)")
     }
 }
+```
 
+---
 
-Core Compliance Features
+## 🌐 Web SDK Integration
 
-Jurisdictional Geofencing: Real-time validation of user coordinates against state and national boundaries to satisfy regional laws.
+### Installation
+Include the Peabody script on your page:
+```html
+<script src="https://peabodycompliance.com/resources/js/peabody.js"></script>
+```
 
-Anti-Spoofing & VPN Detection: Identifies attempts to mask or fake location data using VPNs, proxies, or simulated GPS coordinates.
+### Configuration & Usage
+```javascript
+// Initialize with your token or key
+Peabody.config.sessionToken = 'acquired_session_token';
 
-Device Integrity (Root/Jailbreak): Ensures the device has not been compromised, preventing attackers from bypassing location-based restrictions via system-level exploits.
+// Run verification
+async function checkCompliance() {
+    const result = await Peabody.verifySession('user_123', 'user@email.com');
+    if (result.compliant) {
+        console.log("Verified!");
+    }
+}
+```
 
-Audit-Ready Logging: Every verification generates a cryptographically signed compliance token, providing a legal trail for regulatory audits.
+---
 
-Requirements
+## 🛠 API Reference
 
-iOS: 15.0 or later
+If you are performing server-to-server validation, use our REST endpoint:
 
-Xcode: 15.0 or later
+**POST** `https://peabodycompliance.com/verify.php`
 
-Swift: 5.9+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `apiKey` | String | Permanent API Key (Optional if token used) |
+| `sessionToken` | String | Temporary Session Token (Optional if key used) |
+| `lat` / `lon` | Double | GPS Coordinates |
+| `attestAssertion` | String | Hardware integrity proof (iOS) |
 
-Support
+---
 
-For technical support, integration consulting, or to obtain an API key, please visit PeabodyCompliance.com/support.
+## 📄 Legal & Support
 
-© 2026 Peabody Compliance. All rights reserved.
+*   **Documentation:** [peabodycompliance.com/docs.html](https://peabodycompliance.com/docs.html)
+*   **Terms of Service:** [peabodycompliance.com/terms.html](https://peabodycompliance.com/terms.html)
+*   **Support:** [support@peabodycompliance.com](mailto:support@peabodycompliance.com)
+
+© 2026 Peabody Software, LLC. All rights reserved.
+
