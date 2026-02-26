@@ -17,8 +17,8 @@ let package = Package(
         // Points to your hosted binary zip and ensures its integrity
         .binaryTarget(
             name: "PeabodySDK",
-            url: "https://www.peabodycompliance.com/v1.0.1/PeabodySDK.xcframework.zip",
-            checksum: "e643689421d37fd026c00f5147ad8244a903642c0e3bba6ced99bb7ba1bf5e8d"
+            url: "https://www.peabodycompliance.com/v1.0.2/PeabodySDK.xcframework.zip",
+            checksum: "6595d4cb3d80b0d0d112876214348cbe98868e37ae6618c6ec086e05aee7dee4"
         )
     ]
 )
