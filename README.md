@@ -59,7 +59,7 @@ Peabody.verifyLocation { result in
 ### Installation
 Include the Peabody script on your page:
 ```html
-<script src="https://peabodycompliance.com/resources/js/peabody.js"></script>
+<script src="https://peabodycompliance.com/resources/js/peabody.min.js"></script>
 ```
 
 ### Configuration & Usage
