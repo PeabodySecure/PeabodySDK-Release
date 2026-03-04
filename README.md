@@ -1,19 +1,21 @@
-# Peabody Compliance SDK
+# Peabody Compliance SDK for iOS
 
-[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Web%20%7C%20Android-blue)](https://peabodycompliance.com)
+[![Platform](https://img.shields.io/badge/platform-iOS-blue)](https://peabodycompliance.com)
 [![SDK Version](https://img.shields.io/badge/ios-1.0.2-green)](https://peabodycompliance.com/docs.html)
 [![License](https://img.shields.io/badge/license-Proprietary-red)](https://peabodycompliance.com/terms.html)
 
-Peabody Compliance provides sub-second location integrity and hardware-backed device verification for high-compliance industries (iGaming, Fintech, Sweepstakes). Our SDKs prevent GPS spoofing, VPN/Proxy usage, and device tampering.
+**Peabody Compliance** provides the industry's most robust, sub-second location integrity and hardware-backed device verification. Built for high-compliance sectors like **iGaming, Fintech, Sports Betting, and Sweepstakes**, our SDK ensures your platform remains compliant with **GLI-33** and other jurisdictional regulations.
 
-## 🚀 Key Features (v1.0.2)
+Peabody prevents fraud at the source by identifying GPS spoofing, VPN/Proxy usage, and advanced device tampering before a single transaction is processed.
 
-*   **🛡️ Hardware Attestation:** Utilizes Apple App Attest and Secure Enclave to cryptographically prove request origin.
-*   **✍️ HMAC-SHA256 Signing:** Every request is signed at the hardware level to prevent MITM tampering and replay attacks.
-*   **🖥️ Remote Desktop Detection:** Advanced heuristics to identify and block TeamViewer, AnyDesk, and unauthorized screen mirroring.
-*   **💓 Jurisdictional Heartbeat:** Continuous monitoring mode for active user sessions (e.g., live betting).
-*   **🔒 SSL Pinning:** Built-in public key pinning to ensure data is never intercepted by proxy tools.
-*   **📡 Multi-Layered VPN Detection:** Combines system-level proxy checks, virtual interface scanning (`utun`), and IP intelligence.
+## 🚀 Key Security Features (v1.0.2)
+
+*   **🛡️ Hardware Attestation:** Utilizes Apple **App Attest** and the **Secure Enclave** to cryptographically prove that location requests originate from a genuine, unmodified Apple device.
+*   **✍️ HMAC-SHA256 Payload Signing:** Every request is hardware-signed to prevent Man-in-the-Middle (MITM) tampering, interception, and replay attacks.
+*   **🖥️ Remote Desktop Detection:** Advanced heuristics identify and block **TeamViewer, AnyDesk, AirPlay**, and unauthorized screen mirroring tools used to bypass geofencing.
+*   **💓 Jurisdictional Heartbeat:** Continuous monitoring mode for active user sessions ensures compliance throughout the entire player journey, not just at login.
+*   **🔒 SSL Pinning:** Built-in public key pinning validates our compliance servers, preventing credential theft via proxy tools like Charles or Fiddler.
+*   **📡 Multi-Layered VPN & Proxy Detection:** Combines system-level proxy checks, virtual interface scanning (`utun/tun`), and carrier-grade IP intelligence.
 
 ---
 
@@ -26,18 +28,13 @@ Add the Peabody SDK to your project via **Swift Package Manager**:
 ### Configuration
 Initialize the SDK in your `AppDelegate` or `@main` struct.
 
-#### Enable Debugging (Development only)
-```swift
-Peabody.enableDebugLogging()
-```
-
 #### Method 1: API Key
 ```swift
 Peabody.configure(apiKey: "YOUR_API_KEY")
 ```
 
-#### Method 2: Client ID Handshake (Secure)
-Acquire a temporary session token automatically using your public Client ID.
+#### Method 2: Client ID Handshake (Recommended)
+Exchanges a public Client ID for a temporary session token, keeping your API key out of the binary.
 ```swift
 Peabody.configure(clientId: "YOUR_CLIENT_ID")
 ```
@@ -50,7 +47,9 @@ Peabody.verifyLocation(externalId: "user_123", externalEmail: "player@email.com"
     switch result {
     case .success(let verdict):
         if verdict.isCompliant {
-            print("Access Granted. Score: \(verdict.score)")
+            print("Verified Safe. Risk Score: \(verdict.score)")
+        } else {
+            print("Access Denied: \(verdict.reason)")
         }
     case .failure(let error):
         print("Error: \(error.localizedDescription)")
@@ -59,42 +58,38 @@ Peabody.verifyLocation(externalId: "user_123", externalEmail: "player@email.com"
 ```
 
 #### Continuous Jurisdictional Monitoring
-Keep users compliant during long sessions. The SDK handles app foreground/background transitions automatically.
+Automate re-verification every 15 minutes. The SDK handles foreground/background lifecycle events to preserve battery while maintaining strict compliance.
 ```swift
 Peabody.startMonitoring(interval: 900) { result in
     if case .success(let verdict) = result, !verdict.isCompliant {
-        // Handle jurisdictional change (e.g. stop game)
+        // Take action: e.g. pause the game session
     }
 }
 ```
 
 ---
 
-## 🌐 Web SDK Integration
+## 🌐 Other Platforms
 
-### Installation
-Include the Peabody script on your page:
-```html
-<script src="https://peabodycompliance.com/resources/js/peabody.min.js"></script>
-```
+Information regarding the **Peabody JavaScript Plugin** for web applications and the **Android SDK Package** is available exclusively on our official website. 
 
-### Usage
-```javascript
-async function checkCompliance() {
-    const result = await Peabody.verifySession('user_123', 'user@email.com');
-    if (result.compliant) {
-        console.log("Verified! Risk Score: " + result.risk_score);
-    }
-}
-```
+👉 **[Explore Web & Android Solutions](https://www.peabodycompliance.com/solutions.html)**
 
 ---
 
-## 🛠 API & Audit Reference
+## 🧪 Free Developer Testing
 
-Peabody logs a rich set of signals for every verification call, satisfying GLI-33 Section 2.7.2 requirements.
+Developers can sign up for a **Free API Key** to begin testing location integrity and device signals in their own sandbox environment. Get access to the Peabody Dashboard and real-time logs in minutes.
 
-### Response Data Structure
+👉 **[Register for a Developer Account](https://www.peabodycompliance.com/signup.html)**
+
+---
+
+## 🛠 Audit & Compliance Reference
+
+Peabody logs a comprehensive suite of integrity signals for every verification call, satisfying **GLI-33 Section 2.7.2** requirements for jurisdictional and device integrity.
+
+### Sample Compliance Response
 ```json
 {
   "status": "success",
@@ -114,17 +109,16 @@ Peabody logs a rich set of signals for every verification call, satisfying GLI-3
   "metadata": {
     "sdk_version": "ios-1.0.2",
     "bundle_id": "com.yourdomain.app",
-    "os_version": "18.2",
-    "uptime": 210688
+    "os_version": "18.2"
   }
 }
 ```
 
 ---
 
-## 📄 Legal & Support
+## 📄 Support
 
-*   **Documentation:** [peabodycompliance.com/docs.html](https://peabodycompliance.com/docs.html)
-*   **Support:** [support@peabodycompliance.com](mailto:support@peabodycompliance.com)
+*   **Official Documentation:** [peabodycompliance.com/docs.html](https://peabodycompliance.com/docs.html)
+*   **Email Support:** [support@peabodycompliance.com](mailto:support@peabodycompliance.com)
 
 © 2026 Peabody Software, LLC. All rights reserved. Proprietary and Confidential.
