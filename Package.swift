@@ -18,7 +18,7 @@ let package = Package(
         .binaryTarget(
             name: "PeabodySDK",
             url: "https://www.peabodycompliance.com/v1.0.2/PeabodySDK.xcframework.zip",
-            checksum: "6595d4cb3d80b0d0d112876214348cbe98868e37ae6618c6ec086e05aee7dee4"
+            checksum: "2bbcb76efe5b16d5ec6213033c720fa60c659310831f85e98acd7996681419ab"
         )
     ]
 )
