@@ -8,7 +8,7 @@
 
 Peabody prevents fraud at the source by identifying GPS spoofing, VPN/Proxy usage, and advanced device tampering before a single transaction is processed.
 
-## 🚀 Key Security Features (v1.0.2)
+## 🚀 Key Security Features (v1.0.3)
 
 *   **🛡️ Hardware Attestation:** Utilizes Apple **App Attest** and the **Secure Enclave** to cryptographically prove that location requests originate from a genuine, unmodified Apple device.
 *   **✍️ HMAC-SHA256 Payload Signing:** Every request is hardware-signed to prevent Man-in-the-Middle (MITM) tampering, interception, and replay attacks.
