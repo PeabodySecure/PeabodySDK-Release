@@ -4,7 +4,7 @@
 [![SDK Version](https://img.shields.io/badge/ios-1.0.2-green)](https://peabodycompliance.com/docs.html)
 [![License](https://img.shields.io/badge/license-Proprietary-red)](https://peabodycompliance.com/terms.html)
 
-**Peabody Compliance** provides the industry's most robust, sub-second location integrity and hardware-backed device verification. Built for high-compliance sectors like **iGaming, Fintech, Sports Betting, and Sweepstakes**, our SDK ensures your platform remains compliant with **GLI-33** and other jurisdictional regulations.
+**Peabody Compliance** provides the industry's most robust, sub-second location integrity and hardware-backed device verification. Built for high-compliance sectors like **iGaming, Fintech, Sports Betting, and Sweepstakes**, our SDK ensures your platform remains compliant with applicable jurisdictional regulations.
 
 Peabody prevents fraud at the source by identifying GPS spoofing, VPN/Proxy usage, and advanced device tampering before a single transaction is processed.
 
