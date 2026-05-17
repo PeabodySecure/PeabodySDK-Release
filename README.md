@@ -107,7 +107,7 @@ Peabody logs a comprehensive suite of integrity signals for every verification c
     "extensions": { "asn": "7922", "as": "Comcast Cable" }
   },
   "metadata": {
-    "sdk_version": "ios-1.0.2",
+    "sdk_version": "ios-1.0.4",
     "bundle_id": "com.yourdomain.app",
     "os_version": "18.2"
   }
