@@ -1,14 +1,14 @@
 # Peabody Compliance SDK for iOS
 
 [![Platform](https://img.shields.io/badge/platform-iOS-blue)](https://peabodycompliance.com)
-[![SDK Version](https://img.shields.io/badge/ios-1.0.4-green)](https://peabodycompliance.com/docs.html)
+[![SDK Version](https://img.shields.io/badge/ios-1.0.5-green)](https://peabodycompliance.com/docs.html)
 [![License](https://img.shields.io/badge/license-Proprietary-red)](https://peabodycompliance.com/terms.html)
 
 **Peabody Compliance** (www.peabodycompliance.com) provides the industry's most robust, sub-second location integrity and hardware-backed device verification. Built for high-compliance sectors like **iGaming, Fintech, Sports Betting, and Sweepstakes**, our SDK ensures your platform remains compliant with applicable jurisdictional regulations.
 
 Peabody prevents fraud at the source by identifying GPS spoofing, VPN/Proxy usage, and advanced device tampering before a single transaction is processed.
 
-## 🚀 Key Security Features (v1.0.4)
+## 🚀 Key Security Features (v1.0.5)
 
 *   **🛡️ Hardware Attestation:** Utilizes Apple **App Attest** and the **Secure Enclave** to cryptographically prove that location requests originate from a genuine, unmodified Apple device.
 *   **✍️ HMAC-SHA256 Payload Signing:** Every request is hardware-signed to prevent Man-in-the-Middle (MITM) tampering, interception, and replay attacks.
@@ -107,7 +107,7 @@ Peabody logs a comprehensive suite of integrity signals for every verification c
     "extensions": { "asn": "7922", "as": "Comcast Cable" }
   },
   "metadata": {
-    "sdk_version": "ios-1.0.4",
+    "sdk_version": "ios-1.0.5",
     "bundle_id": "com.yourdomain.app",
     "os_version": "18.2"
   }
